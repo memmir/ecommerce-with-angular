@@ -1,1 +1,25 @@
-<p>home works!</p>
+<div class="container">
+    <button class="btn-success mt-4 w-100 bg-primary text-light">
+      <i class="fa fa-plus"></i>
+      Add Product
+    </button>
+
+  <hr>
+
+  <div class="row">
+    <div class="col-md-3 mt-2" *ngFor="let pr of products"> <!--col-md-3 == 1 satırda 4 kolon olsun  anlamına geliyor//// mt-2 rowlar arasında boşluk olsun anlamına geliyor. // ngFor ile ts dosyasındaki products arrayindeki elemanlar kadar kayıt üret diyoruz.-->
+      <div class="card" style="width: 18rem;">
+        <img src="https://onlineapi.cagri.com/api/v1/pub/products/img/50995/1/532" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!---->
