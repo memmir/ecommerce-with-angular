@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {Product} from "../../models/products.model";
 import {HttpClient} from "@angular/common/http";
+import {environment} from "../../../environments/environment";
+import {Basket} from "../../models/basket.model";
+import {BasketsService} from "../../service/baskets.service";
 
 @Component({
   selector: 'app-home',
@@ -9,7 +12,7 @@ import {HttpClient} from "@angular/common/http";
 })
 export class HomeComponent implements OnInit {
 
-  api : string ="http://localhost:3000/"
+  api : string =environment.api;
   product: Product= new Product();
   products: Product[] = [
 
@@ -17,6 +20,7 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private http: HttpClient,
+    private basketsService: BasketsService
   ) { }
 
   ngOnInit(): void {
@@ -36,6 +40,23 @@ export class HomeComponent implements OnInit {
        this.getProductList();
        this.product = new Product();
      },
+      error: (err) => console.log(err)
+    })
+  }
+
+  addToCart(model: Product): void {
+    this.http.post<any>(this.api + "baskets", model).subscribe({
+      next: (res) => {
+        console.log("Added to cart")
+        this.getBasketsList();
+      },
+      error: (err) => console.log(err)
+    })
+  }
+
+  getBasketsList() {
+    this.http.get<any>(this.api + 'baskets').subscribe({
+      next: (res) => this.basketsService.baskets = res,
       error: (err) => console.log(err)
     })
   }
